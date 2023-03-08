@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <!-- MY CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css') }}">
+    <title>shows</title>
+    <style>
+        h1 {
+            color: rgb(255, 255, 255);
+
+        }
+
+        h3 {
+            text-align: center;
+
+        }
+
+        body {
+            background-color: rgba(255, 254, 254, 0.904);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p-5 bg-danger text-white text-center">
+        <h1>MovieHub</h1>
+
+    </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/show/new">Add</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/user/logout">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+
+
+                <h3 class="mt-4">Best movie sites</h3>
+                <p>Find Something to watch</p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active bg-danger" href="https://www.imdb.com/">IMDB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.rottentomatoes.com/">Rotten Tomatoes</a>
+                    </li>
+
+                </ul>
+                <hr class="d-sm-none">
+            </div>
+            <div class="col-sm-8">
+                <h2>About us</h2>
+                <p>Welcome to MovieHub, your one-stop-shop for all things movies! We are a team of passionate movie
+                    enthusiasts who love everything from classic cinema to the latest blockbuster hits. Our goal is to
+                    provide you with a comprehensive database of movie information that is easy to navigate and fun to
+                    use.
+
+                    At MovieHub, we believe that movies have the power to bring people together, spark conversation, and
+                    inspire creativity. That's why we're committed to building a platform that connects movie lovers
+                    from all around the world.
+
+                    Our team is made up of experienced developers, designers, and movie experts who work tirelessly to
+                    keep our database up-to-date and accurate. We strive to provide you with the most complete and
+                    reliable information about movies, including plot summaries, cast and crew details, ratings, and
+                    reviews.
+
+                    We understand that everyone has their own unique taste in movies, and that's why we offer a
+                    personalized experience on MovieHub. You can create your own watchlist, rate and review movies, and
+                    receive tailored recommendations based on your viewing history.
+
+                    We are dedicated to making MovieHub the best movie database app out there, and we value your
+                    feedback and suggestions. If you have any questions or comments, please don't hesitate to contact
+                    us. We hope you enjoy using MovieHub as much as we enjoyed creating it!</p>
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <div class="card">
+        <h3>Movies and TV</h3>
+        <form action="/" method="GET">
+            <div class="container-md mb-3">
+
+                <input type="text" name="q" class="form-control" placeholder="Search shows...">
+                <button class="btn btn-danger" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="container-md">
+            <div class="row">
+                <div class="d-flex align-items-baseline ">
+                    <table class="table table-dark table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Title</th>
+
+                                <th>Network</th>
+                                <th>Release date</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {% for show in all_shows %}
+                            <tr>
+                                <td>{{ show.title }}</td>
+
+                                <td>{{ show.network }}</td>
+                                <td>{{ show.release_date}}</td>
+
+                                <td>
+                                    <a href="/show/{{show.id}}/show" class="btn btn-success">Show</a>
+                                    {% if show.chef.id == session['uuid'] %}
+                                    <a href="/show/{{show.id}}/edit" class="btn btn-danger">Edit</a>
+                                    <a href="/show/{{show.id}}/delete" class="btn btn-danger">Delete</a>
+
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="mt-5 p-4 bg-dark text-white text-center">
+            <p>Copyright © 2023 MovieHub. All rights reserved.
+                Terms of Service | Privacy Policy | Contact Us</p>
+        </div>
+
+
+
+
+
+
+
+
+        <!-- BOOTSTRAP JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+
+        <!-- MY JS -->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
